@@ -29,9 +29,17 @@ export default async function HabitacionesPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {habitaciones.map((habitacion) => (
               <div key={habitacion.id} className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow border border-gray-100 flex flex-col">
-                <div className="h-48 bg-blue-100 flex items-center justify-center">
-                  <span className="text-blue-300 font-medium text-sm">📷 Espacio para foto</span>
-                </div>
+                {habitacion.imagen_url ? (
+                  <img
+                    src={habitacion.imagen_url}
+                    alt={habitacion.nombre}
+                    className="h-48 w-full object-cover"
+                  />
+                ) : (
+                  <div className="h-48 bg-blue-100 flex items-center justify-center">
+                    <span className="text-blue-400 font-medium text-sm">📷 Sin fotografía</span>
+                  </div>
+                )}
 
                 <div className="p-6 flex flex-col flex-grow">
                   <div className="flex justify-between items-start mb-4">

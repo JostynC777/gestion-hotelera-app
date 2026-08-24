@@ -16,6 +16,7 @@ export default function NuevaHabitacion() {
   const [nombre, setNombre] = useState('')
   const [precio, setPrecio] = useState('')
   const [descripcion, setDescripcion] = useState('')
+  const [archivoImagen, setArchivoImagen] = useState<File | null>(null)
   const [cargando, setCargando] = useState(false)
 
   // Función que se ejecuta al darle clic a "Guardar"
@@ -23,14 +24,35 @@ export default function NuevaHabitacion() {
     e.preventDefault()
     setCargando(true)
 
-    // Insertamos los datos en tu tabla 'habitaciones'
+    let urlPublica = null
+
+    if (archivoImagen) {
+      const nombreArchivo = `${Date.now()}-${archivoImagen.name}`
+      const { error: errorSubida } = await supabase.storage
+        .from('imagenes-habitaciones')
+        .upload(nombreArchivo, archivoImagen)
+
+      if (errorSubida) {
+        alert('Error al subir la imagen: ' + errorSubida.message)
+        setCargando(false)
+        return
+      }
+
+      const { data: urlData } = supabase.storage
+        .from('imagenes-habitaciones')
+        .getPublicUrl(nombreArchivo)
+
+      urlPublica = urlData.publicUrl
+    }
+
     const { error } = await supabase
       .from('habitaciones')
       .insert([
         {
           nombre: nombre,
-          precio: parseFloat(precio), // Convertimos el texto a número
-          descripcion: descripcion
+          precio: parseFloat(precio),
+          descripcion: descripcion,
+          imagen_url: urlPublica
         }
       ])
 
@@ -88,6 +110,16 @@ export default function NuevaHabitacion() {
             placeholder="Detalles de la habitación (TV, Wifi, balcón...)"
             value={descripcion}
             onChange={(e) => setDescripcion(e.target.value)}
+          />
+        </div>
+
+        <div>
+          <label className="block text-gray-700 mb-2 font-semibold">Fotografía de la Habitación</label>
+          <input
+            type="file"
+            accept="image/*"
+            className="w-full border p-2 rounded text-black bg-gray-50"
+            onChange={(e) => setArchivoImagen(e.target.files?.[0] || null)}
           />
         </div>
 
