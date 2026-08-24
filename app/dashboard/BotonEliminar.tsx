@@ -1,17 +1,12 @@
 'use client'
 
 import { useState } from 'react'
-import { createBrowserClient } from '@supabase/ssr'
 import { useRouter } from 'next/navigation'
+import { eliminarHabitacionAction } from '../actions'
 
 export default function BotonEliminar({ id }: { id: any }) {
   const router = useRouter()
   const [cargando, setCargando] = useState(false)
-
-  const supabase = createBrowserClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  )
 
   const eliminar = async () => {
     const confirmar = window.confirm('¿Estás seguro de que deseas eliminar esta habitación?')
@@ -19,16 +14,16 @@ export default function BotonEliminar({ id }: { id: any }) {
 
     setCargando(true)
     
-    const { error } = await supabase
-      .from('habitaciones')
-      .delete()
-      .eq('id', id)
-
-    if (error) {
-      alert('Error al eliminar: ' + error.message)
-      setCargando(false)
-    } else {
+    try {
+      await eliminarHabitacionAction(id)
       router.refresh()
+    } catch (err: any) {
+      if (err.message.includes('violates foreign key constraint') || err.message.includes('reservas_habitacion_id_fkey')) {
+        alert('No se puede eliminar esta habitación porque tiene reservas asociadas. Por favor, cancela primero las reservas de esta habitación en el historial antes de eliminarla.');
+      } else {
+        alert('Error al eliminar: ' + err.message)
+      }
+      setCargando(false)
     }
   }
 

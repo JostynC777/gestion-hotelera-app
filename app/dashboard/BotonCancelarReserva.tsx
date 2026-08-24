@@ -1,17 +1,12 @@
 'use client'
 
 import { useState } from 'react'
-import { createBrowserClient } from '@supabase/ssr'
 import { useRouter } from 'next/navigation'
+import { cancelarReservaAction } from '../actions'
 
 export default function BotonCancelarReserva({ id }: { id: string }) {
   const router = useRouter()
   const [cargando, setCargando] = useState(false)
-
-  const supabase = createBrowserClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  )
 
   const cancelarReserva = async () => {
     const confirmar = window.confirm('¿Estás seguro de que deseas cancelar esta reserva?')
@@ -19,16 +14,13 @@ export default function BotonCancelarReserva({ id }: { id: string }) {
 
     setCargando(true)
 
-    const { error } = await supabase
-      .from('reservas')
-      .delete()
-      .eq('id', id)
-
-    if (error) {
-      alert('Error al cancelar la reserva: ' + error.message)
-      setCargando(false)
-    } else {
+    try {
+      await cancelarReservaAction(id)
       router.refresh()
+    } catch (err: any) {
+      alert('Error al cancelar la reserva: ' + err.message)
+    } finally {
+      setCargando(false)
     }
   }
 

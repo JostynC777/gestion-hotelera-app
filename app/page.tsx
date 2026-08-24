@@ -1,6 +1,52 @@
 import Link from 'next/link'
 
-export default function Home() {
+// API Externa: Consumo de clima usando fetch + async/await con manejo de errores
+async function getWeatherData() {
+  try {
+    // Coordenadas de Cancún, México (un destino turístico exclusivo)
+    const url = 'https://api.open-meteo.com/v1/forecast?latitude=21.1619&longitude=-86.8515&current=temperature_2m,weather_code'
+    
+    const res = await fetch(url, {
+      next: { revalidate: 1800 } // Revalidar cada 30 minutos
+    })
+
+    if (!res.ok) {
+      throw new Error('Error en respuesta de la API de clima')
+    }
+
+    const data = await res.json()
+    return {
+      temp: data.current.temperature_2m,
+      code: data.current.weather_code,
+      error: null
+    }
+  } catch (error: any) {
+    console.error('Error al consumir API de clima:', error.message)
+    return {
+      temp: null,
+      code: null,
+      error: 'Información del clima no disponible temporalmente'
+    }
+  }
+}
+
+// Mapeador de códigos de clima según especificaciones WMO de Open-Meteo
+function obtenerDescripcionClima(codigo: number | null): string {
+  if (codigo === null) return 'Templado'
+  if (codigo === 0) return '☀️ Despejado y Soleado'
+  if (codigo >= 1 && codigo <= 3) return '⛅ Parcialmente Nublado'
+  if (codigo === 45 || codigo === 48) return '🌫️ Neblina'
+  if (codigo >= 51 && codigo <= 55) return '🌦️ Llovizna Ligera'
+  if (codigo >= 61 && codigo <= 65) return '🌧️ Lluvia'
+  if (codigo >= 80 && codigo <= 82) return '🌧️ Chubascos de Lluvia'
+  if (codigo >= 95 && codigo <= 99) return '⛈️ Tormenta'
+  return '🌡️ Templado'
+}
+
+export default async function Home() {
+  const clima = await getWeatherData()
+  const descripcionClima = obtenerDescripcionClima(clima.code)
+
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col justify-between selection:bg-amber-500 selection:text-slate-950">
       
@@ -12,15 +58,28 @@ export default function Home() {
           <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-amber-500/5 rounded-full blur-[100px] -z-10 pointer-events-none" />
           
           <div className="container mx-auto px-6 max-w-5xl text-center flex flex-col items-center">
-            {/* Badge de Valoración */}
-            <div className="inline-flex items-center gap-2 bg-slate-900 border border-slate-800 rounded-full py-1.5 px-4 mb-8 shadow-sm">
-              <span className="flex text-amber-400 text-xs">
-                ★ ★ ★ ★ ★
-              </span>
-              <span className="w-1.5 h-1.5 rounded-full bg-slate-700"></span>
-              <span className="text-xs font-semibold text-slate-300">
-                Puntuación 4.9/5 en Booking
-              </span>
+            
+            {/* Badges de Lujo y Clima (API Externa) */}
+            <div className="flex flex-col sm:flex-row gap-3 items-center mb-8">
+              {/* Badge 1: Booking */}
+              <div className="inline-flex items-center gap-2 bg-slate-900 border border-slate-800 rounded-full py-1.5 px-4 shadow-sm">
+                <span className="flex text-amber-400 text-xs">★ ★ ★ ★ ★</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-slate-700"></span>
+                <span className="text-xs font-semibold text-slate-300">Puntuación 4.9/5 en Booking</span>
+              </div>
+
+              {/* Badge 2: Clima en tiempo real (API Externa) */}
+              <div className="inline-flex items-center gap-2 bg-slate-900 border border-slate-800 rounded-full py-1.5 px-4 shadow-sm">
+                <span className="text-xs">🌴</span>
+                <span className="text-xs font-bold text-amber-400 uppercase tracking-wider">Clima en el Resort:</span>
+                {clima.error ? (
+                  <span className="text-[11px] text-slate-400">{clima.error}</span>
+                ) : (
+                  <span className="text-[11px] text-slate-200 font-semibold">
+                    {clima.temp}°C — {descripcionClima}
+                  </span>
+                )}
+              </div>
             </div>
 
             <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold max-w-4xl tracking-tight leading-[1.1] mb-8">

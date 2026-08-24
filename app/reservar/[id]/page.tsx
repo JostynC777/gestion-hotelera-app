@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { createBrowserClient } from '@supabase/ssr'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import { crearReservaAction } from '../../actions'
 
 export default function ReservarPage({ params }: { params: { id: string } }) {
   const router = useRouter()
@@ -57,23 +58,17 @@ export default function ReservarPage({ params }: { params: { id: string } }) {
 
     setCargando(true)
 
-    const { error } = await supabase
-      .from('reservas')
-      .insert([
-        {
-          huesped_id: usuarioId,
-          habitacion_id: params.id,
-          fecha: fecha
-        }
-      ])
-
-    if (error) {
-      alert('Error al reservar: ' + error.message)
-      setCargando(false)
-    } else {
+    try {
+      await crearReservaAction({
+        habitacionId: params.id,
+        fecha: fecha,
+      })
       alert('¡Reserva confirmada con éxito! Te esperamos.')
       router.push('/dashboard')
       router.refresh()
+    } catch (err: any) {
+      alert('Error al reservar: ' + err.message)
+      setCargando(false)
     }
   }
 

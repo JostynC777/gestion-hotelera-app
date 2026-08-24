@@ -197,7 +197,13 @@ export default async function DashboardPage() {
                         <td className="p-4">
                           <span className="text-emerald-400 font-bold">${habitacion.precio}</span>
                         </td>
-                        <td className="p-4 text-right pr-6">
+                        <td className="p-4 text-right pr-6 flex items-center justify-end gap-2">
+                          <Link 
+                            href={`/dashboard/editar/${habitacion.id}`}
+                            className="text-amber-400 hover:text-amber-300 hover:bg-slate-850 border border-slate-800 hover:border-slate-700 font-bold text-xs px-3 py-1.5 rounded-xl transition-all duration-300 inline-block"
+                          >
+                            Editar
+                          </Link>
                           <BotonEliminar id={habitacion.id} />
                         </td>
                       </tr>
