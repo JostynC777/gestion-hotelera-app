@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Navigation } from "@/components/Navigation";
+import Navigation from "@/components/Navigation";
 import { getRoom } from "@/lib/rooms";
 
 export default function RoomDetailPage({ params }: { params: { id: string } }) {
