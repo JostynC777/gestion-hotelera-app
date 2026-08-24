@@ -61,76 +61,117 @@ export default function NuevaHabitacion() {
       setCargando(false)
     } else {
       alert('¡Habitación guardada con éxito!')
-      router.push('/dashboard') // Te regresa al panel principal
+      router.push('/dashboard')
       router.refresh()
     }
   }
 
   return (
-    <div className="p-8 max-w-2xl mx-auto">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">Añadir Nueva Habitación</h1>
-        <Link href="/dashboard" className="text-blue-600 hover:underline">
-          Volver al Dashboard
-        </Link>
-      </div>
-
-      <form onSubmit={guardarHabitacion} className="bg-white p-6 border rounded-lg shadow-sm flex flex-col gap-4">
-        <div>
-          <label className="block text-gray-700 mb-2 font-semibold">Nombre de la habitación</label>
-          <input
-            type="text"
-            required
-            className="w-full border p-2 rounded text-black"
-            placeholder="Ej: Suite Presidencial"
-            value={nombre}
-            onChange={(e) => setNombre(e.target.value)}
-          />
-        </div>
+    <div className="min-h-screen bg-slate-950 py-16 px-6 text-slate-100 selection:bg-amber-500 selection:text-slate-950">
+      <div className="max-w-2xl mx-auto">
         
-        <div>
-          <label className="block text-gray-700 mb-2 font-semibold">Precio por noche ($)</label>
-          <input
-            type="number"
-            required
-            step="0.01"
-            className="w-full border p-2 rounded text-black"
-            placeholder="Ej: 150.00"
-            value={precio}
-            onChange={(e) => setPrecio(e.target.value)}
-          />
+        {/* Cabecera de Página */}
+        <div className="flex justify-between items-center mb-8 pb-4 border-b border-slate-900">
+          <div>
+            <span className="text-xs font-bold uppercase tracking-widest text-amber-500">Panel de Control</span>
+            <h1 className="text-3xl font-extrabold text-slate-100 tracking-tight mt-1 font-serif">Añadir Habitación</h1>
+          </div>
+          <Link 
+            href="/dashboard" 
+            className="text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-amber-400 transition-colors flex items-center gap-1.5"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            Volver al Dashboard
+          </Link>
         </div>
 
-        <div>
-          <label className="block text-gray-700 mb-2 font-semibold">Descripción</label>
-          <textarea
-            required
-            className="w-full border p-2 rounded text-black"
-            rows={4}
-            placeholder="Detalles de la habitación (TV, Wifi, balcón...)"
-            value={descripcion}
-            onChange={(e) => setDescripcion(e.target.value)}
-          />
-        </div>
+        {/* Formulario Estilizado */}
+        <form onSubmit={guardarHabitacion} className="bg-slate-900 border border-slate-800 rounded-3xl p-8 shadow-xl flex flex-col gap-6 relative">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-amber-500/5 rounded-full blur-[100px] -z-10 pointer-events-none" />
 
-        <div>
-          <label className="block text-gray-700 mb-2 font-semibold">Fotografía de la Habitación</label>
-          <input
-            type="file"
-            accept="image/*"
-            className="w-full border p-2 rounded text-black bg-gray-50"
-            onChange={(e) => setArchivoImagen(e.target.files?.[0] || null)}
-          />
-        </div>
+          <div>
+            <label className="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">
+              Nombre de la habitación
+            </label>
+            <input
+              type="text"
+              required
+              className="w-full rounded-xl bg-slate-950 border border-slate-800 text-slate-100 placeholder-slate-600 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 px-4 py-3.5 outline-none transition duration-200"
+              placeholder="Ej: Suite Presidencial Vista al Mar"
+              value={nombre}
+              onChange={(e) => setNombre(e.target.value)}
+            />
+          </div>
+          
+          <div>
+            <label className="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">
+              Precio por noche ($ USD)
+            </label>
+            <input
+              type="number"
+              required
+              step="0.01"
+              className="w-full rounded-xl bg-slate-950 border border-slate-800 text-slate-100 placeholder-slate-600 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 px-4 py-3.5 outline-none transition duration-200"
+              placeholder="Ej: 180.00"
+              value={precio}
+              onChange={(e) => setPrecio(e.target.value)}
+            />
+          </div>
 
-        <button
-          type="submit"
-          disabled={cargando}
-          className="mt-4 bg-blue-600 text-white font-semibold py-3 px-6 rounded hover:bg-blue-700 transition disabled:bg-gray-400"
-        >
-          {cargando ? 'Guardando en base de datos...' : 'Guardar Habitación'}
-        </button>
-      </form>
+          <div>
+            <label className="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">
+              Descripción de Características
+            </label>
+            <textarea
+              required
+              className="w-full rounded-xl bg-slate-950 border border-slate-800 text-slate-100 placeholder-slate-600 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 px-4 py-3.5 outline-none transition duration-200 resize-none"
+              rows={4}
+              placeholder="Detalla las amenidades de la habitación (TV Satelital, Cama King, Bañera de hidromasaje, balcón privado, etc.)..."
+              value={descripcion}
+              onChange={(e) => setDescripcion(e.target.value)}
+            />
+          </div>
+
+          <div>
+            <label className="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-3">
+              Fotografía de la Habitación
+            </label>
+            
+            {/* Contenedor de subida premium */}
+            <div className="relative border-2 border-dashed border-slate-800 hover:border-amber-500/50 rounded-2xl p-6 bg-slate-950/45 transition-colors cursor-pointer group flex flex-col items-center justify-center text-center">
+              <input
+                type="file"
+                accept="image/*"
+                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                onChange={(e) => setArchivoImagen(e.target.files?.[0] || null)}
+              />
+              
+              <div className="w-10 h-10 bg-slate-900 rounded-xl flex items-center justify-center text-slate-500 group-hover:text-amber-400 transition-colors mb-3">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+              </div>
+              
+              <span className="text-xs font-bold text-slate-300">
+                {archivoImagen ? archivoImagen.name : 'Haz clic para seleccionar o arrastra una imagen'}
+              </span>
+              <span className="text-[10px] text-slate-600 uppercase tracking-wider font-semibold mt-1">
+                Formatos soportados: PNG, JPG, WEBP (Max 5MB)
+              </span>
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            disabled={cargando}
+            className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-bold py-4 rounded-xl transition-all duration-300 shadow-lg shadow-amber-500/10 hover:shadow-amber-500/20 hover:scale-[1.01] disabled:opacity-50 disabled:cursor-not-allowed mt-4"
+          >
+            {cargando ? 'Guardando en la base de datos...' : 'Publicar Habitación'}
+          </button>
+        </form>
+      </div>
     </div>
   )
 }

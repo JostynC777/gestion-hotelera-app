@@ -14,13 +14,11 @@ export default function BotonEliminar({ id }: { id: any }) {
   )
 
   const eliminar = async () => {
-    // Pedimos confirmación para no borrar por accidente
     const confirmar = window.confirm('¿Estás seguro de que deseas eliminar esta habitación?')
     if (!confirmar) return
 
     setCargando(true)
     
-    // Le decimos a Supabase que borre la fila que coincida con el ID
     const { error } = await supabase
       .from('habitaciones')
       .delete()
@@ -30,7 +28,7 @@ export default function BotonEliminar({ id }: { id: any }) {
       alert('Error al eliminar: ' + error.message)
       setCargando(false)
     } else {
-      router.refresh() // Actualiza la tabla automáticamente sin recargar la página entera
+      router.refresh()
     }
   }
 
@@ -38,7 +36,7 @@ export default function BotonEliminar({ id }: { id: any }) {
     <button
       onClick={eliminar}
       disabled={cargando}
-      className="text-red-500 hover:text-red-700 font-semibold text-sm bg-red-50 hover:bg-red-100 px-3 py-1 rounded transition disabled:opacity-50"
+      className="text-red-400 hover:text-red-300 hover:bg-red-950/40 border border-red-900/30 hover:border-red-900/60 font-bold text-xs px-3 py-1.5 rounded-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
     >
       {cargando ? 'Borrando...' : 'Eliminar'}
     </button>

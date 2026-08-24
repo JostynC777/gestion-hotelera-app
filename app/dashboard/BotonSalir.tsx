@@ -13,14 +13,17 @@ export default function BotonSalir() {
   const cerrarSesion = async () => {
     await supabase.auth.signOut()
     router.push('/login')
-    router.refresh() // Actualiza la página para borrar los datos de caché
+    router.refresh()
   }
 
   return (
     <button
       onClick={cerrarSesion}
-      className="mt-8 bg-red-600 text-white font-semibold py-2 px-6 rounded-lg hover:bg-red-700 transition-colors"
+      className="bg-slate-900 border border-slate-800 text-slate-300 hover:text-red-400 hover:border-red-950 hover:bg-red-950/20 font-bold py-2 px-5 rounded-xl transition-all duration-300 text-xs flex items-center gap-2"
     >
+      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+      </svg>
       Cerrar Sesión
     </button>
   )

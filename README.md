@@ -34,3 +34,24 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+
+## 🛠️ Historial de Commits
+
+<!-- COMMITS_START -->
+
+| Hash | Autor | Hace cuánto | Mensaje de Commit |
+| :--- | :--- | :--- | :--- |
+| `243b488` | Jostyn Cumbajin | _55 minutes ago_ | ✨ `feat` feat: implementacion de cancelacion de reservas en el dashboard |
+| `900c64e` | Jostyn Cumbajin | _57 minutes ago_ | ✨ `feat` feat: diseño de la pagina principal o landing page de bienvenida |
+| `b02d568` | Jostyn Cumbajin | _65 minutes ago_ | ✨ `feat` feat: implementacion de carga de imagenes con supabase storage |
+| `4baf3af` | Jostyn Cumbajin | _72 minutes ago_ | ✨ `feat` feat: integracion de tabla de historial de reservas por usuario y admin |
+| `a5310e0` | Jostyn Cumbajin | _76 minutes ago_ | ✨ `feat` feat: creacion de la base de datos de habitaciones y formulario |
+| `527e979` | Jostyn Cumbajin | _3 days ago_ | ✨ `feat` feat: configuracion de cliente supabase y middleware |
+| `9591f25` | Jostyn Cumbajin | _5 days ago_ | ✨ `feat` feat: componente RoomCard tipado con TS y listado de habitaciones |
+| `7c05914` | Jostyn Cumbajin | _5 days ago_ | ✨ `feat` feat: estructura de rutas publicas y privadas |
+| `6d2b35a` | Jostyn Cumbajin | _5 days ago_ | 🔧 `other` Initial commit from Create Next App |
+
+_Actualizado automáticamente el 24/8/2026, 12:01:04_
+
+<!-- COMMITS_END -->

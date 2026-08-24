@@ -36,9 +36,9 @@ export default function BotonCancelarReserva({ id }: { id: string }) {
     <button
       onClick={cancelarReserva}
       disabled={cargando}
-      className="text-red-500 hover:text-red-700 font-semibold text-xs bg-red-50 hover:bg-red-100 px-3 py-1 rounded transition disabled:opacity-50"
+      className="text-red-450 hover:text-red-300 hover:bg-red-950/40 border border-red-900/30 hover:border-red-900/60 font-bold text-xs px-3 py-1.5 rounded-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
     >
-      {cargando ? 'Cancelando...' : 'Cancelar'}
+      {cargando ? 'Cancelando...' : 'Cancelar Reserva'}
     </button>
   )
 }
