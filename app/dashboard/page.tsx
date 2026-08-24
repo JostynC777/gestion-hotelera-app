@@ -2,6 +2,7 @@ import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 import BotonSalir from './BotonSalir'
 import BotonEliminar from './BotonEliminar'
+import BotonCancelarReserva from './BotonCancelarReserva'
 import Link from 'next/link'
 
 export default async function DashboardPage() {
@@ -98,6 +99,7 @@ export default async function DashboardPage() {
                 <th className="p-4 font-medium">ID Reserva</th>
                 <th className="p-4 font-medium">Habitación</th>
                 <th className="p-4 font-medium">Fecha de Ingreso</th>
+                <th className="p-4 font-medium text-right">Acciones</th>
               </tr>
             </thead>
             <tbody>
@@ -110,12 +112,15 @@ export default async function DashboardPage() {
                       <td className="p-4 text-xs text-gray-400 font-mono">{reserva.id.split('-')[0]}...</td>
                       <td className="p-4 font-semibold text-blue-700">{hab ? hab.nombre : 'Habitación Eliminada'}</td>
                       <td className="p-4 font-medium">{reserva.fecha}</td>
+                      <td className="p-4 text-right">
+                        <BotonCancelarReserva id={reserva.id} />
+                      </td>
                     </tr>
                   )
                 })
               ) : (
                 <tr>
-                  <td colSpan={3} className="p-8 text-center text-gray-500">
+                  <td colSpan={4} className="p-8 text-center text-gray-500">
                     No hay reservas registradas.
                   </td>
                 </tr>
