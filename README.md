@@ -42,17 +42,18 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 | Hash | Autor | Hace cuánto | Mensaje de Commit |
 | :--- | :--- | :--- | :--- |
-| `c986420` | Jostyn Cumbajin | _26 seconds ago_ | 🎨 `style` style: rediseño de interfaz profesional y script de commits |
-| `243b488` | Jostyn Cumbajin | _57 minutes ago_ | ✨ `feat` feat: implementacion de cancelacion de reservas en el dashboard |
-| `900c64e` | Jostyn Cumbajin | _58 minutes ago_ | ✨ `feat` feat: diseño de la pagina principal o landing page de bienvenida |
-| `b02d568` | Jostyn Cumbajin | _66 minutes ago_ | ✨ `feat` feat: implementacion de carga de imagenes con supabase storage |
-| `4baf3af` | Jostyn Cumbajin | _74 minutes ago_ | ✨ `feat` feat: integracion de tabla de historial de reservas por usuario y admin |
-| `a5310e0` | Jostyn Cumbajin | _78 minutes ago_ | ✨ `feat` feat: creacion de la base de datos de habitaciones y formulario |
+| `6656cc7` | Jostyn Cumbajin | _9 seconds ago_ | ✨ `feat` feat: implementacion de server actions, api externa de clima y edicion de habitaciones |
+| `c986420` | Jostyn Cumbajin | _50 minutes ago_ | 🎨 `style` style: rediseño de interfaz profesional y script de commits |
+| `243b488` | Jostyn Cumbajin | _2 hours ago_ | ✨ `feat` feat: implementacion de cancelacion de reservas en el dashboard |
+| `900c64e` | Jostyn Cumbajin | _2 hours ago_ | ✨ `feat` feat: diseño de la pagina principal o landing page de bienvenida |
+| `b02d568` | Jostyn Cumbajin | _2 hours ago_ | ✨ `feat` feat: implementacion de carga de imagenes con supabase storage |
+| `4baf3af` | Jostyn Cumbajin | _2 hours ago_ | ✨ `feat` feat: integracion de tabla de historial de reservas por usuario y admin |
+| `a5310e0` | Jostyn Cumbajin | _2 hours ago_ | ✨ `feat` feat: creacion de la base de datos de habitaciones y formulario |
 | `527e979` | Jostyn Cumbajin | _3 days ago_ | ✨ `feat` feat: configuracion de cliente supabase y middleware |
 | `9591f25` | Jostyn Cumbajin | _5 days ago_ | ✨ `feat` feat: componente RoomCard tipado con TS y listado de habitaciones |
 | `7c05914` | Jostyn Cumbajin | _5 days ago_ | ✨ `feat` feat: estructura de rutas publicas y privadas |
 | `6d2b35a` | Jostyn Cumbajin | _5 days ago_ | 🔧 `other` Initial commit from Create Next App |
 
-_Actualizado automáticamente el 24/8/2026, 12:02:34_
+_Actualizado automáticamente el 24/8/2026, 12:51:39_
 
 <!-- COMMITS_END -->
